@@ -9,13 +9,13 @@ public class PathfindingLogic {
     private Map map;
 
     private SortableNodeList searchedNodes;
-    private SortableNodeList openNodes;
+    private MinHeap openNodes;
     private Path bestPath;
 
     PathfindingLogic(Map map) {
         this.map = map;
         searchedNodes = new SortableNodeList();
-        openNodes = new SortableNodeList();
+        openNodes = new MinHeap();
     }
 
     /**

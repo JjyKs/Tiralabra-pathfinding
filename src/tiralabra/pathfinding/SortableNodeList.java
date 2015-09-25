@@ -1,71 +1,114 @@
 package tiralabra.pathfinding;
+
 /**
- * Placeholder model to replicate couple arraylist methods. Not fully commented since we're not gonna keep using this.
+ * Simple arraylist implementation
+ *
  * @author jjyks
  */
-
 class SortableNodeList {
-        private Node[] list = new Node[0];
 
-        public Node getFirst() {
-            return list[0];
+    private Node[] listOfNodes;
+    private int index;
+    private int values;
+
+    public SortableNodeList() {
+        listOfNodes = new Node[20];
+        index = 0;
+        values = 0;
+    }
+
+    /**
+     * Adds node to the list
+     *
+     *
+     * @param n
+     */
+    public void add(Node n) {
+        if (index < listOfNodes.length) {
+            values++;
+            listOfNodes[index] = n;
+            index++;
+        } else {
+            addSlotsToList(listOfNodes);
+            add(n);
         }
+    }
 
-        public void clear() {
-            list = new Node[0];
+    private void addSlotsToList(Node[] listOfNodes) {
+        Node[] tempList = new Node[listOfNodes.length + 40];
+        for (int i = 0; i < this.listOfNodes.length; i++) {
+            tempList[i] = this.listOfNodes[i];
         }
+        this.listOfNodes = tempList;
+    }
 
-        public void add(Node node) {
-            if (this.size() == 0) {
-                list = new Node[this.size() + 1];
-                list[0] = node;
-            } else {
-                Node[] newList = new Node[this.size() + 1];
-                int offset = 0;
-                for (int i = 0; i < this.size(); i++) {
-                    if (node != null && (node.compareTo(list[i]) == -1 || node.compareTo(list[i]) == 0)) {
-                        newList[i] = node;
-                        node = null;
-                        offset++;
-                        newList[i + offset] = list[i];
-                    } else {
-                        newList[i + offset] = list[i];
-                    }
+    public Node get(int i) {
+        return listOfNodes[i];
+    }
+
+    public void remove(int i) {
+        if (values != 0) {
+            listOfNodes[i] = null;
+            values--;
+            index--;
+        }
+    }
+
+    public Node getFirst() {
+        return listOfNodes[0];
+    }
+
+    public void remove(Node n) {
+        int o = 0;
+        if (values != 0) {
+            values--;
+            index--;
+            for (int i = 0; i < values; i++) {
+                if (listOfNodes[i].equals(n)) {
+                    listOfNodes[i] = null;
                 }
-                if (node != null) {
-                    newList[newList.length - 1] = node;
-                }
-                list = newList;
+                o = i;
+                i += listOfNodes.length;
+            }
+            for (int i = o; i < listOfNodes.length - 1; i++) {
+                listOfNodes[i] = listOfNodes[i + 1];
             }
         }
+    }
 
-        public void remove(Node n) {
-            for (int i = 0; i < list.length; i++) {
-                if (list[i] == n) {
-                    for (int u = 0; i + u < list.length - 1; u++) {
-                        list[i + u] = list[i + u + 1];
-                    }
-                    break;
-                }
-            }
-        }
-
-        public int size() {
-            int amountOfNodes = 0;
-            for (Node n : list) {
-                if (n != null) {
-                    amountOfNodes++;
-                }
-            }
-            return amountOfNodes;
-        }
-
-        public boolean contains(Node n) {
-            for (Node node : list) {
-                if (n == node) {
+    /**
+     * Checks if list contains the node
+     *
+     * @param n
+     * @return
+     */
+    public boolean contains(Node n) {
+        if (values != 0) {
+            for (int i = (listOfNodes.length - 1); i >= 0; i--) {
+                if (listOfNodes[i] != null && n.equals(listOfNodes[i])) {
                     return true;
                 }
             }
-            return false;
         }
+        return false;
     }
+
+    public void clear() {
+        listOfNodes = new Node[20];
+    }
+
+    public int size() {
+        return values;
+    }
+
+    public void set(int i, Node n) {
+        listOfNodes[i] = n;
+    }
+
+    public boolean isEmpty() {
+        if (values == 0) {
+            return true;
+        }
+        return false;
+    }
+}

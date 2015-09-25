@@ -10,8 +10,8 @@ public class Map {
     final int ySize = 16;
     Node[][] nodes;
 
-    final int startLocationX = 1;
-    final int startLocationY = 1;
+    final int startLocationX = 0;
+    final int startLocationY = 0;
     final int targetLocationX = 15;
     final int targetLocationY = 15;
 
@@ -28,12 +28,42 @@ public class Map {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 node = new Node(0, x, y);
-                if (x > 1 && x < 13 && y > 2 && y < 13){
+               
+                if (x >= 0 && x < 14 && y == 3){
                     node.weight = 1;
                 }
-                if (x > 12 && x < 15 && y == 3){
+                if (x >= 2 && x < 16 && y == 5){
                     node.weight = 1;
                 }
+                if (x >= 0 && x < 14 && y == 7){
+                    node.weight = 1;
+                }
+                if (x >= 10 && x < 14 && y == 9){
+                    node.weight = 1;
+                }
+                if (x <= 8 && y == 9){
+                    node.weight = 1;
+                }
+                if (x == 7 && y > 9 && y < 10){
+                    node.weight = 1;
+                }
+                if (x == 7 && y > 11 && y < 14){
+                    node.weight = 1;
+                }
+                if (x == 7 && y > 9 && y < 11){
+                    node.weight = 1;
+                }
+
+                if (x == 11 && y > 9 && y < 14){
+                    node.weight = 1;
+                }
+                if (x > 7 && x <16 && y == 13){
+                    node.weight = 1;
+                }
+                
+                
+                
+
                 nodes[x][y] = node;
             }
         }

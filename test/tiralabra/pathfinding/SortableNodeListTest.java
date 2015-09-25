@@ -17,50 +17,18 @@ import static org.junit.Assert.*;
  * @author jjyks
  */
 public class SortableNodeListTest {
-    
-    public SortableNodeListTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    private SortableNodeList nodeList;
+    private Node node;
+
     @Before
     public void setUp() {
+        nodeList = new SortableNodeList();
+        node = new Node(0, 0, 0);
     }
-    
+
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getFirst method, of class SortableNodeList.
-     */
-    @Test
-    public void testGetFirst() {
-        System.out.println("getFirst");
-        SortableNodeList instance = new SortableNodeList();
-        Node expResult = null;
-        Node result = instance.getFirst();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of clear method, of class SortableNodeList.
-     */
-    @Test
-    public void testClear() {
-        System.out.println("clear");
-        SortableNodeList instance = new SortableNodeList();
-        instance.clear();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -68,39 +36,21 @@ public class SortableNodeListTest {
      */
     @Test
     public void testAdd() {
-        System.out.println("add");
-        Node node = null;
-        SortableNodeList instance = new SortableNodeList();
-        instance.add(node);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        nodeList.add(node);
+        assertTrue(nodeList.contains(node));
+        assertTrue(nodeList.contains(node));
+        assertTrue(nodeList.size() == 1);
     }
 
     /**
-     * Test of remove method, of class SortableNodeList.
+     * Test of addSlotsToList method, of class SortableNodeList.
      */
     @Test
-    public void testRemove() {
-        System.out.println("remove");
-        Node n = null;
-        SortableNodeList instance = new SortableNodeList();
-        instance.remove(n);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of size method, of class SortableNodeList.
-     */
-    @Test
-    public void testSize() {
-        System.out.println("size");
-        SortableNodeList instance = new SortableNodeList();
-        int expResult = 0;
-        int result = instance.size();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAddSlotsToLists() {
+        for (int i = 0; i < 21; i++) {
+            nodeList.add(new Node(0, i, i));
+        }
+        assertTrue(nodeList.size() == 21);
     }
 
     /**
@@ -108,14 +58,52 @@ public class SortableNodeListTest {
      */
     @Test
     public void testContains() {
-        System.out.println("contains");
-        Node n = null;
-        SortableNodeList instance = new SortableNodeList();
-        boolean expResult = false;
-        boolean result = instance.contains(n);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        nodeList.add(node);
+        assertTrue(nodeList.contains(node));
     }
-    
+
+    /**
+     * Test of clear method, of class SortableNodeList.
+     */
+    @Test
+    public void testClear() {
+        for (int i = 0; i < 21; i++) {
+            nodeList.add(new Node(0, i, i));
+        }
+        nodeList = new SortableNodeList();
+        assertTrue(nodeList.isEmpty());
+    }
+
+    /**
+     * Test of size method, of class SortableNodeList.
+     */
+    @Test
+    public void testSize() {
+        for (int i = 0; i < 21; i++) {
+            nodeList.add(new Node(0, i, i));
+        }
+        assertTrue(nodeList.size() == 21);
+    }
+
+    /**
+     * Test of isEmpty method, of class SortableNodeList.
+     */
+    @Test
+    public void testIsEmpty() {
+        SortableNodeList instance = new SortableNodeList();
+        boolean expResult = true;
+        boolean result = instance.isEmpty();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of remove method, of class NodeLista.
+     */
+    @Test
+    public void testRemove_int() {
+        nodeList.add(node);
+        nodeList.remove(node);
+        assertTrue(nodeList.isEmpty());
+    }
+
 }
