@@ -50,14 +50,8 @@ public class Map {
                 if (x == 7 && y > 11 && y < 14){
                     node.weight = 1;
                 }
-                if (x == 7 && y > 9 && y < 11){
-                    node.weight = 1;
-                }
 
                 if (x == 11 && y > 9 && y < 14){
-                    node.weight = 1;
-                }
-                if (x > 7 && x <16 && y == 13){
                     node.weight = 1;
                 }
                 
