@@ -1,4 +1,12 @@
-package tiralabra.pathfinding;
+package tiralabra.pathfinding.algorithms;
+
+import helpers.Map;
+import helpers.Node;
+import helpers.Path;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import tiralabra.pathfinding.datastructures.MinHeap;
+import tiralabra.pathfinding.datastructures.SortableNodeList;
 
 /**
  * Here's the a* algorithm
@@ -8,12 +16,16 @@ public class PathfindingLogic {
 
     private Map map;
 
+    //private ArrayList<Node> searchedNodes;
+    //private PriorityQueue<Node> openNodes;
     private SortableNodeList searchedNodes;
     private MinHeap openNodes;
     private Path bestPath;
 
-    PathfindingLogic(Map map) {
+    public PathfindingLogic(Map map) {
         this.map = map;
+        //searchedNodes = new ArrayList();
+        //openNodes = new PriorityQueue();
         searchedNodes = new SortableNodeList();
         openNodes = new MinHeap();
     }
@@ -41,15 +53,14 @@ public class PathfindingLogic {
         searchedNodes.clear();
         openNodes.clear();
         openNodes.add(map.nodes[map.startLocationX][map.startLocationY]);
-
+        Node last = null;
         while (openNodes.size() != 0) {
-
             // here we get a first node sorted by the heuristics from the open list
-            Node current = openNodes.getFirst();
-
+            Node current = openNodes.peek();
+            last = current;
+            
             // check if we're on the target
             if (current.x == map.targetLocationX && current.y == map.targetLocationY) {
-                constructPrintablePath(current);
                 break;
             }
 
@@ -88,6 +99,8 @@ public class PathfindingLogic {
 
             }
         }
+        constructPrintablePath(last);
+
     }
 
     /**
@@ -101,9 +114,9 @@ public class PathfindingLogic {
                     System.out.print("S");
                 } else if (node.target) {
                     System.out.print("T");
-                } else if (bestPath.contains(node.x, node.y)) {
+                } else if (bestPath != null && bestPath.contains(node.x, node.y)) {
                     System.out.print("x");
-                } else if (searchedNodes.contains(node)) {
+                } else if (searchedNodes != null && searchedNodes.contains(node)) {
                     System.out.print("░");
                 } else {
                     if (node.weight != 0) {

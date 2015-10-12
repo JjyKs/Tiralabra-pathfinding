@@ -1,11 +1,13 @@
-package tiralabra.pathfinding;
+package tiralabra.pathfinding.datastructures;
+
+import helpers.Node;
 
 /**
  * Simple arraylist implementation
  *
  * @author jjyks
  */
-class SortableNodeList {
+public class SortableNodeList {
 
     private Node[] listOfNodes;
     private int index;
@@ -35,7 +37,7 @@ class SortableNodeList {
     }
 
     private void addSlotsToList(Node[] listOfNodes) {
-        Node[] tempList = new Node[listOfNodes.length + 40];
+        Node[] tempList = new Node[listOfNodes.length + listOfNodes.length / 2];
         for (int i = 0; i < this.listOfNodes.length; i++) {
             tempList[i] = this.listOfNodes[i];
         }
@@ -43,6 +45,9 @@ class SortableNodeList {
     }
 
     public Node get(int i) {
+        if (i >= listOfNodes.length) {
+            return null;
+        }
         return listOfNodes[i];
     }
 
@@ -91,6 +96,15 @@ class SortableNodeList {
             }
         }
         return false;
+    }
+
+    public int getPosition(Node n) {
+        for (int i = 0; i < listOfNodes.length; i++) {
+            if (listOfNodes[i] == n) {
+                return i;
+            }
+        }
+        return Integer.MIN_VALUE;
     }
 
     public void clear() {

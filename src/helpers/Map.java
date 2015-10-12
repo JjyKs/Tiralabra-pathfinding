@@ -1,68 +1,92 @@
-package tiralabra.pathfinding;
+package helpers;
+
+import helpers.Node;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Holds information about map. 
+ * Holds information about map.
+ *
  * @author jjyks
  */
 public class Map {
 
-    final int xSize = 16;
-    final int ySize = 16;
-    Node[][] nodes;
+    public final int xSize = 256;
+    public final int ySize = 256;
+    public Node[][] nodes;
 
-    final int startLocationX = 0;
-    final int startLocationY = 0;
-    final int targetLocationX = 15;
-    final int targetLocationY = 15;
+    public int startLocationX = 0;
+    public int startLocationY = 0;
+    public int targetLocationX = 15;
+    public int targetLocationY = 15;
 
-    Map() {
+    public Map() {
         generateMap();
         setNeighbours();
     }
+
     /**
      * Generates an array of nodes and obstacles
      */
     private void generateMap() {
-        Node node;
         nodes = new Node[xSize][ySize];
+
+        generateRandomMap();
+        startLocationX = ThreadLocalRandom.current().nextInt(0, xSize - 1);
+        startLocationY = ThreadLocalRandom.current().nextInt(0, xSize - 1);
+        targetLocationX = ThreadLocalRandom.current().nextInt(0, xSize - 1);
+        targetLocationY = ThreadLocalRandom.current().nextInt(0, xSize - 1);
+        nodes[startLocationX][startLocationX].start = true;
+        nodes[targetLocationX][targetLocationY].target = true;
+        nodes[startLocationX][startLocationX].weight = 0;
+        nodes[targetLocationX][targetLocationY].weight = 0;
+        System.out.println("Map generated");
+    }
+
+    private void generateRandomMap() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
-                node = new Node(0, x, y);
-               
-                if (x >= 0 && x < 14 && y == 3){
+                Node node = new Node(0, x, y);
+                node.weight = ThreadLocalRandom.current().nextInt(0, 10) / 9;
+                nodes[x][y] = node;
+            }
+        }
+    }
+
+    private void generateOldMap() {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                Node node = new Node(0, x, y);
+
+                if (x >= 0 && x < 14 && y == 3) {
                     node.weight = 1;
                 }
-                if (x >= 2 && x < 16 && y == 5){
+                if (x >= 2 && x < 16 && y == 5) {
                     node.weight = 1;
                 }
-                if (x >= 0 && x < 14 && y == 7){
+                if (x >= 0 && x < 14 && y == 7) {
                     node.weight = 1;
                 }
-                if (x >= 10 && x < 14 && y == 9){
+                if (x >= 10 && x < 14 && y == 9) {
                     node.weight = 1;
                 }
-                if (x <= 8 && y == 9){
+                if (x <= 8 && y == 9) {
                     node.weight = 1;
                 }
-                if (x == 7 && y > 9 && y < 10){
+                if (x == 7 && y > 9 && y < 10) {
                     node.weight = 1;
                 }
-                if (x == 7 && y > 11 && y < 14){
+                if (x == 7 && y > 11 && y < 14) {
                     node.weight = 1;
                 }
 
-                if (x == 11 && y > 9 && y < 14){
+                if (x == 11 && y > 9 && y < 14) {
                     node.weight = 1;
                 }
-                
-                
-                
 
                 nodes[x][y] = node;
             }
         }
-        nodes[startLocationX][startLocationX].start = true;
-        nodes[targetLocationX][targetLocationY].target = true;
     }
 
     /**

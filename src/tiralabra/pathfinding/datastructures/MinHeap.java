@@ -1,4 +1,6 @@
-package tiralabra.pathfinding;
+package tiralabra.pathfinding.datastructures;
+
+import helpers.Node;
 
 /**
  *
@@ -46,10 +48,12 @@ public class MinHeap {
     }
     
     public void remove(Node n){
+        int nPos = heap.getPosition(n);
         heap.remove(n);
+        heapify(nPos);
     }
 
-    public Node getFirst() {
+    public Node peek() {
         return heap.get(0);
     }
 

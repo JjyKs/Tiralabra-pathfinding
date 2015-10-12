@@ -44,4 +44,5 @@ S ░ ░ ▓ ░ ░ ░ ▓   ▓
 ░ ░ ░ ░ ░ ▓ ░ ░ ░ ░ ░ ░ ░ ░ ░ T
 
 
+
 Tulosten perusteella algoritmi vaikuttaisi toimivan oikein. 

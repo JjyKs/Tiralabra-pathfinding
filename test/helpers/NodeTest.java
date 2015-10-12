@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tiralabra.pathfinding;
+package helpers;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author jjyks
+ * @author JjyKs
  */
 public class NodeTest {
     

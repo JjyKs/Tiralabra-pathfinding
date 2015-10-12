@@ -1,4 +1,6 @@
-package tiralabra.pathfinding;
+package helpers;
+
+import helpers.Node;
 
 /**
  * Simple model containing 10000 places for nodes. The indexing starts from 5000. You can add maximum of 5000 nodes to the end and start of this array.
