@@ -5,3 +5,5 @@ Helpers, joka sisältää yksinkertaisempia tietorakenteita, joita käytetään 
 Pathfinding, joka sisältää itse algoritmin.
 
 A*:rin heuristiikkanna käytän diagonaalisen liikkeen huomioivaa tie-breaker toteutusta. 
+
+Lähteet: Wikipedia, http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#a-stars-use-of-the-heuristic, https://www.reddit.com/r/gamedev
