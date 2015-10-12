@@ -17,6 +17,12 @@ public class Node implements Comparable<Node> {
     public int x, y, weight;
     public boolean start, target;
 
+    /**
+     *
+     * @param weight
+     * @param x
+     * @param y
+     */
     public Node(int weight, int x, int y) {
         neighbours = new Node[8];
         this.x = x;
@@ -37,6 +43,7 @@ public class Node implements Comparable<Node> {
      *
      * @param position where is that neighbour. Consult the image above to
      * understand the numbers
+     * @return
      */
     public Node getNeighbour(int position) {
         return neighbours[position];
@@ -70,7 +77,7 @@ public class Node implements Comparable<Node> {
     /**
      *
      * @param otherNode The node your are comparing this one to
-     * @return -1 if this one smaller, 0 if same and 1 if bigger
+     * @return -1 if this one is smaller, 0 if same and 1 if bigger
      */
     @Override
     public int compareTo(Node otherNode) {
@@ -80,12 +87,14 @@ public class Node implements Comparable<Node> {
         float selfDistanceFromGoal = distanceFromGoal + distanceFromStart;
         float otherDistanceFromGoal = otherNode.distanceFromGoal + otherNode.distanceFromStart;
 
-        if (selfDistanceFromGoal < otherDistanceFromGoal) {
+     
+        if (this.distanceFromStart + this.distanceFromGoal < otherNode.distanceFromStart + otherNode.distanceFromGoal) {
             return -1;
-        } else if (selfDistanceFromGoal > otherDistanceFromGoal) {
-            return 1;
-        } else {
+        } else if (this.distanceFromStart + this.distanceFromGoal == otherNode.distanceFromStart + otherNode.distanceFromGoal) {
             return 0;
+        } else {
+            return 1;
         }
+
     }
 }

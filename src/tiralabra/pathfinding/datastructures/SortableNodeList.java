@@ -13,6 +13,9 @@ public class SortableNodeList {
     private int index;
     private int values;
 
+    /**
+     *
+     */
     public SortableNodeList() {
         listOfNodes = new Node[20];
         index = 0;
@@ -37,13 +40,18 @@ public class SortableNodeList {
     }
 
     private void addSlotsToList(Node[] listOfNodes) {
-        Node[] tempList = new Node[listOfNodes.length + listOfNodes.length / 2];
+        Node[] tempList = new Node[listOfNodes.length + listOfNodes.length / 8];
         for (int i = 0; i < this.listOfNodes.length; i++) {
             tempList[i] = this.listOfNodes[i];
         }
         this.listOfNodes = tempList;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Node get(int i) {
         if (i >= listOfNodes.length) {
             return null;
@@ -51,6 +59,10 @@ public class SortableNodeList {
         return listOfNodes[i];
     }
 
+    /**
+     *
+     * @param i
+     */
     public void remove(int i) {
         if (values != 0) {
             listOfNodes[i] = null;
@@ -59,10 +71,18 @@ public class SortableNodeList {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getFirst() {
         return listOfNodes[0];
     }
 
+    /**
+     *
+     * @param n
+     */
     public void remove(Node n) {
         int o = 0;
         if (values != 0) {
@@ -73,7 +93,7 @@ public class SortableNodeList {
                     listOfNodes[i] = null;
                 }
                 o = i;
-                i += listOfNodes.length;
+                break;
             }
             for (int i = o; i < listOfNodes.length - 1; i++) {
                 listOfNodes[i] = listOfNodes[i + 1];
@@ -98,6 +118,11 @@ public class SortableNodeList {
         return false;
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
     public int getPosition(Node n) {
         for (int i = 0; i < listOfNodes.length; i++) {
             if (listOfNodes[i] == n) {
@@ -107,18 +132,34 @@ public class SortableNodeList {
         return Integer.MIN_VALUE;
     }
 
+    /**
+     *
+     */
     public void clear() {
         listOfNodes = new Node[20];
     }
 
+    /**
+     *
+     * @return
+     */
     public int size() {
         return values;
     }
 
+    /**
+     *
+     * @param i
+     * @param n
+     */
     public void set(int i, Node n) {
         listOfNodes[i] = n;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty() {
         if (values == 0) {
             return true;

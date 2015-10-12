@@ -1,1 +1,7 @@
-En ole vielä ehtinyt analysoimaan koodin tehokkuutta varsinaisesti, mutta pyrin koodatessa huomioimaan tavoitellut aikavaatimukset, ja algoritmin pitäisi pystyä näihin.
+Ohjelman pakkauksia ovat:
+
+Datastructures, joka sisältää toteuttamani tietorakenteet, 
+Helpers, joka sisältää yksinkertaisempia tietorakenteita, joita käytetään lähinnä maailman/sen osien säilyttämiseen
+Pathfinding, joka sisältää itse algoritmin.
+
+A*:rin heuristiikkanna käytän diagonaalisen liikkeen huomioivaa tie-breaker toteutusta. 

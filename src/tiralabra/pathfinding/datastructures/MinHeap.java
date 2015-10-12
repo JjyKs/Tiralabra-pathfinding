@@ -10,6 +10,9 @@ public class MinHeap {
 
     private SortableNodeList heap;
 
+    /**
+     *
+     */
     public MinHeap() {
         heap = new SortableNodeList();
     }
@@ -35,7 +38,6 @@ public class MinHeap {
     /**
      * Removes the first node
      *
-     * @return
      */
     public void remove() {
         if (heap.isEmpty()) {
@@ -47,24 +49,45 @@ public class MinHeap {
         }
     }
     
+    /**
+     * Removes n
+     * @param n
+     */
     public void remove(Node n){
         int nPos = heap.getPosition(n);
         heap.remove(n);
         heapify(nPos);
     }
 
+    /**
+     * return the first node
+     * @return
+     */
     public Node peek() {
         return heap.get(0);
     }
 
+    /**
+     *
+     * @return size
+     */
     public int size() {
         return heap.size();
     }
 
+    /**
+     *
+     * @return isEmpty
+     */
     public boolean isEmpty() {
         return heap.isEmpty();
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
     public boolean contains(Node n) {
         for (int i = 0; i < heap.size(); i++) {
             if (heap.get(i).equals(n)) {
@@ -75,6 +98,9 @@ public class MinHeap {
 
     }
 
+    /**
+     * resets the node list
+     */
     public void clear() {
         heap = new SortableNodeList();
     }

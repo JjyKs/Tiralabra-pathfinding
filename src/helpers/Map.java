@@ -11,15 +11,28 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Map {
 
-    public final int xSize = 256;
-    public final int ySize = 256;
+    public int xSize = 96;
+    public int ySize = xSize;
     public Node[][] nodes;
-
     public int startLocationX = 0;
     public int startLocationY = 0;
     public int targetLocationX = 15;
     public int targetLocationY = 15;
 
+    /**
+     *
+     * @param mapSize
+     */
+    public Map(int mapSize) {
+        xSize = mapSize;
+        ySize = mapSize;
+        generateMap();
+        setNeighbours();
+    }
+
+    /**
+     *
+     */
     public Map() {
         generateMap();
         setNeighbours();
@@ -36,7 +49,7 @@ public class Map {
         startLocationY = ThreadLocalRandom.current().nextInt(0, xSize - 1);
         targetLocationX = ThreadLocalRandom.current().nextInt(0, xSize - 1);
         targetLocationY = ThreadLocalRandom.current().nextInt(0, xSize - 1);
-        nodes[startLocationX][startLocationX].start = true;
+        nodes[startLocationX][startLocationY].start = true;
         nodes[targetLocationX][targetLocationY].target = true;
         nodes[startLocationX][startLocationX].weight = 0;
         nodes[targetLocationX][targetLocationY].weight = 0;
@@ -47,7 +60,7 @@ public class Map {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 Node node = new Node(0, x, y);
-                node.weight = ThreadLocalRandom.current().nextInt(0, 10) / 9;
+                node.weight = ThreadLocalRandom.current().nextInt(0, 10) / 5;
                 nodes[x][y] = node;
             }
         }
@@ -125,17 +138,10 @@ public class Map {
         }
     }
 
-    /**
-     *
-     * @param node1 first node
-     * @param node2 second node
-     * @return a distance between given nodes
-     */
+   
     public float getDistanceBetween(Node node1, Node node2) {
-        if (node1.x == node2.x || node1.y == node2.y) {
-            return ySize + xSize;
-        } else {
-            return (float) 1.7 * (ySize + xSize);
-        }
+
+        return 1;
+
     }
 }

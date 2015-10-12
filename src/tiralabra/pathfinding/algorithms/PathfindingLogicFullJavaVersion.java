@@ -5,30 +5,24 @@ import helpers.Node;
 import helpers.Path;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-import tiralabra.pathfinding.datastructures.MinHeap;
-import tiralabra.pathfinding.datastructures.SortableNodeList;
 
 /**
  * Here's the a* algorithm
- *
  * @author jjyks
  */
-public class PathfindingLogic {
+public class PathfindingLogicFullJavaVersion {
 
     private Map map;
 
-    //private ArrayList<Node> searchedNodes;
-    //private PriorityQueue<Node> openNodes;
-    private SortableNodeList searchedNodes;
-    private MinHeap openNodes;
+    private ArrayList<Node> searchedNodes;
+    private PriorityQueue<Node> openNodes;
     private Path bestPath;
 
-    public PathfindingLogic(Map map) {
+    public PathfindingLogicFullJavaVersion(Map map) {
         this.map = map;
-        //searchedNodes = new ArrayList();
-        //openNodes = new PriorityQueue();
-        searchedNodes = new SortableNodeList();
-        openNodes = new MinHeap();
+        searchedNodes = new ArrayList();
+        openNodes = new PriorityQueue();
+        
     }
 
     /**
@@ -40,16 +34,16 @@ public class PathfindingLogic {
      * @return estimated distance
      */
     public float estimateDistanceToTarget(int positionX, int positionY, int targetX, int targetY) {
-        return Math.max(Math.abs(positionX - targetX), Math.abs(positionX - targetX)) * 1.001f;
+        float dx = targetX - positionX;
+        float dy = targetY - positionY;
+        return (float) (dx * dx) + (dy * dy);
     }
 
     /**
-     * Here we loop through nodes and use the heuristics, check the actual java
-     * comments to figure out what we're doing.
+     * Here we loop through nodes and use the heuristics, check the actual java comments to figure out what we're doing.
      *
      */
     public void run() {
-
         map.nodes[map.startLocationX][map.startLocationY].distanceFromStart = 0;
         searchedNodes.clear();
         openNodes.clear();
@@ -58,9 +52,8 @@ public class PathfindingLogic {
         while (openNodes.size() != 0) {
             // here we get a first node sorted by the heuristics from the open list
             Node current = openNodes.peek();
-            //Node current = openNodes.getFirst();
             last = current;
-
+            
             // check if we're on the target
             if (current.x == map.targetLocationX && current.y == map.targetLocationY) {
                 break;
@@ -86,6 +79,7 @@ public class PathfindingLogic {
 
                     //add neighbour to the open list if it's not there
                     if (!openNodes.contains(neighbour)) {
+                        openNodes.add(neighbour);
                         neighbourSeemsBetter = true;
                     } else { //neighbour might be better if it's closer to the start
                         neighbourSeemsBetter = neighborDistanceFromStart < current.distanceFromStart;
@@ -95,7 +89,6 @@ public class PathfindingLogic {
                         neighbour.lastNode = current;
                         neighbour.distanceFromStart = neighborDistanceFromStart;
                         neighbour.distanceFromGoal = estimateDistanceToTarget(neighbour.x, neighbour.y, map.targetLocationX, map.targetLocationY);
-                        openNodes.add(neighbour);
                     }
                 }
 
@@ -120,10 +113,12 @@ public class PathfindingLogic {
                     System.out.print("x");
                 } else if (searchedNodes != null && searchedNodes.contains(node)) {
                     System.out.print("░");
-                } else if (node.weight != 0) {
-                    System.out.print("▓");
                 } else {
-                    System.out.print(" ");
+                    if (node.weight != 0) {
+                        System.out.print("▓");
+                    } else {
+                        System.out.print(" ");
+                    }
                 }
                 System.out.print(" ");
             }
@@ -133,8 +128,7 @@ public class PathfindingLogic {
 
     /**
      * This method constructs the path from nodes by traversing back one by one.
-     *
-     * @param node The last node we reached
+     * @param node The last node we reached 
      */
     private void constructPrintablePath(Node node) {
         Path path = new Path();
